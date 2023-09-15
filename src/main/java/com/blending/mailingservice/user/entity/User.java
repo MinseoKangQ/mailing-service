@@ -1,6 +1,7 @@
 package com.blending.mailingservice.user.entity;
 
 import com.blending.mailingservice.mail.entity.Mail;
+import com.blending.mailingservice.spam.entity.Spam;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -29,5 +30,8 @@ public class User {
 
     @OneToMany(mappedBy = "sender", cascade = CascadeType.ALL)
     private List<Mail> sentMails = new ArrayList<>(); // 유저가 보낸 메일들
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Spam> spamList = new ArrayList<>(); // 유저가 등록한 스팸 키워드
 
 }

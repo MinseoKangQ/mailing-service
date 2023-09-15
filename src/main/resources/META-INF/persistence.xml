@@ -6,6 +6,7 @@
         <!--    Entity 등록    -->
         <class>com.blending.mailingservice.user.entity.User</class>
         <class>com.blending.mailingservice.mail.entity.Mail</class>
+        <class>com.blending.mailingservice.spam.entity.Spam</class>
         <properties>
             <!-- 필수 속성 -->
             <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
