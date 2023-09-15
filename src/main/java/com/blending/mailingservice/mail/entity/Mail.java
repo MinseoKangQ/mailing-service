@@ -8,8 +8,6 @@ import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import javax.persistence.*;
-import java.io.File;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Getter
@@ -25,11 +23,13 @@ public class Mail {
     @Column(name = "mail_id")
     private Long id; // 메일 아이디 (PK)
 
-    @Column(name = "sender_id")
-    private String senderId; // 발송인
+    @ManyToOne
+    @JoinColumn(name = "sender_id", referencedColumnName = "user_id")
+    private User sender; // 발송인
 
-    @Column(name = "receiver_id")
-    private String receiverId; // 수신인
+    @ManyToOne
+    @JoinColumn(name = "receiver_id", referencedColumnName = "user_id")
+    private User receiver; // 수신인
 
     private String title; // 메일 제목
 
