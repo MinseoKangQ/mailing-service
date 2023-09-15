@@ -22,30 +22,33 @@ import java.time.LocalDateTime;
 public class Mail {
 
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    @Column(name = "mail_id")
+    private Long id; // 메일 아이디 (PK)
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private User sender;
+    @Column(name = "sender_id")
+    private String senderId; // 발송인
 
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "receiver_id")
-//    private User receiver;
+    @Column(name = "receiver_id")
+    private String receiverId; // 수신인
+
+    private String title; // 메일 제목
+
+    @Column(columnDefinition = "TEXT")
+    private String content; // 메일 내용
 
     @CreatedDate
-    @Column(nullable = false, updatable = false)
-    private LocalDateTime created_at;
+    @Column(name = "sent_at", nullable = false, updatable = false)
+    private LocalDateTime sentAt; // 발송인이 메일 전송한 시간
 
-    private String title;
+    @Column(name = "read_at", updatable = false)
+    private LocalDateTime readAt = null; // 수신인이 메일 읽은 시간
 
-    private String content;
+    @Column(name = "is_spam")
+    private Boolean isSpam = false; // 스팸 여부
 
-//    private File attached_file = null;
+    @Column(name = "is_read")
+    private Boolean isRead = false; // 읽음 여부
 
-    private Boolean is_read = false;
-
-    @Column(nullable = false, updatable = false)
-    private LocalDateTime read_at;
-
-    private Boolean is_star = false;
+    @Column(name = "is_important")
+    private Boolean isImportant = false; // 중요 메일 여부
 }

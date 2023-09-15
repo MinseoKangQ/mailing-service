@@ -24,10 +24,5 @@ public class User {
 
     private String password;
 
-    @OneToMany(mappedBy = "sender")
-    private List<Mail> sentMails = new ArrayList<>();
-
-//    @OneToMany(mappedBy = "receiver")
-//    private List<Mail> receivedMails = new ArrayList<>();
 
 }
