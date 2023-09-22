@@ -24,10 +24,7 @@ import java.util.List;
 @EntityListeners(AuditingEntityListener.class)
 public class User {
 
-    @Id @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long num; // 유저 번호 (PK, 자동 생성)
-
-    @Column(name = "user_id")
+    @Id @Column(name = "user_id")
     private String id; // 유저 아이디
 
     @Column(name = "user_name")
@@ -42,7 +39,7 @@ public class User {
 
     @LastModifiedDate
     @Column(name="user_modified_at", nullable = false)
-    private LocalDateTime modifiedAt = null; // 유저 정보 변경 시간
+    private LocalDateTime modifiedAt; // 유저 정보 변경 시간
 
     @OneToMany(mappedBy = "receiver", cascade = CascadeType.ALL)
     private List<Mail> receivedMails = new ArrayList<>(); // 유저가 받은 메일들
