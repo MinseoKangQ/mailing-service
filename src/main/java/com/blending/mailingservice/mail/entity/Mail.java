@@ -2,10 +2,7 @@ package com.blending.mailingservice.mail.entity;
 
 import com.blending.mailingservice.media.entity.Media;
 import com.blending.mailingservice.user.entity.User;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import javax.persistence.*;
@@ -19,6 +16,7 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 @Table(name = "MAIL")
+@Builder
 @EntityListeners(AuditingEntityListener.class)
 public class Mail {
 

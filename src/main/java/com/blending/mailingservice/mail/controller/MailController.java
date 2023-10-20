@@ -15,7 +15,8 @@ public class MailController {
     // 메일 저장 (메일이 전송될 때 불려진다)
     @PostMapping("send")
     public String sendMail(@RequestBody MailDto mailDto) {
-        return null;
+        String result = mailService.sendMail(mailDto);
+        return result;
     }
 
     // 한 유저의 메일함 전체보기
