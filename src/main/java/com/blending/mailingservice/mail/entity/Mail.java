@@ -23,11 +23,11 @@ public class Mail {
     @Column(name = "mail_id")
     private Long id; // 메일 아이디 (PK)
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "sender_id", referencedColumnName = "user_id")
     private User sender; // 발송인
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "receiver_id", referencedColumnName = "user_id")
     private User receiver; // 수신인
 

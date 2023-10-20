@@ -41,10 +41,10 @@ public class User {
     @Column(name="user_modified_at", nullable = false)
     private LocalDateTime modifiedAt; // 유저 정보 변경 시간
 
-    @OneToMany(mappedBy = "receiver", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "receiver", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<Mail> receivedMails = new ArrayList<>(); // 유저가 받은 메일들
 
-    @OneToMany(mappedBy = "sender", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "sender", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<Mail> sentMails = new ArrayList<>(); // 유저가 보낸 메일들
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
