@@ -1,5 +1,6 @@
 package com.blending.mailingservice.mail.entity;
 
+import com.blending.mailingservice.media.entity.Media;
 import com.blending.mailingservice.user.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,6 +10,8 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -24,12 +27,15 @@ public class Mail {
     private Long id; // 메일 아이디 (PK)
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "sender_id", referencedColumnName = "user_id")
+    @JoinColumn(name = "sender_id")
     private User sender; // 발송인
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "receiver_id", referencedColumnName = "user_id")
+    @JoinColumn(name = "receiver_id")
     private User receiver; // 수신인
+
+    @OneToMany(mappedBy = "mail", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private List<Media> mediaList = new ArrayList<>();
 
     private String title; // 메일 제목
 
