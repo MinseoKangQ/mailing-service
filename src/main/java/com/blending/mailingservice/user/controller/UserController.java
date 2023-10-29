@@ -1,7 +1,11 @@
 package com.blending.mailingservice.user.controller;
 
-import com.blending.mailingservice.user.service.UserService;
+import com.blending.mailingservice.user.dto.UserLoginDto;
+import com.blending.mailingservice.user.dto.UserSignUpDto;
+import com.blending.mailingservice.user.service.UserServiceImpl;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,36 +14,21 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class UserController {
 
-    private final UserService userService;
+    private final UserServiceImpl userServiceImpl;
 
-    // 회원가입 Controller
-    @GetMapping("/signup")
-    public String signUpPage() {
-        return "signup";
-    }
-
+    // 회원가입
     @PostMapping("/signup")
-    public String signUp(@RequestParam("id") String id,
-                                @RequestParam("name") String name,
-                                @RequestParam("pw") String pw) {
+    public ResponseEntity<?> signUp(@RequestBody UserSignUpDto userSignUpDto) {
 
-        String result = userService.signUp(id, name, pw);
-        System.out.println(result);
-        return "signup_success";
+        UserSignUpDto result = userServiceImpl.signup(userSignUpDto);
+        return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
-    // 로그인 Controller
-    @GetMapping("/login")
-    public String loginPage() { return "login"; }
-
+    // 로그인
     @PostMapping("/login")
-    public String login(@RequestParam("id") String id,
-                        @RequestParam("pw") String pw) {
-        String result = userService.login(id, pw);
-        System.out.println(result);
-        if(result.equals("login success")) return "login_success";
-        else if(result.equals("pw is incorrect")) return "login_fail_by_pw";
-        else return "login_fail_by_id";
+    public ResponseEntity<?> login(@RequestBody UserLoginDto userLoginDto) {
+        UserLoginDto result = userServiceImpl.login(userLoginDto);
+        return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
 }

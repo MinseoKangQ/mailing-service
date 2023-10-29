@@ -7,16 +7,14 @@ import lombok.Setter;
 @Getter
 @Setter
 @Builder
-public class UserSignUpDto {
+public class UserLoginDto {
     private String id;
     private String pw;
-    private String pw2;
 
-    public UserSignUpDto passwordMasked() {
-        return new UserSignUpDtoBuilder()
+    public UserLoginDto passwordMasked() {
+        return new UserLoginDtoBuilder()
                 .id(this.id)
                 .pw(this.pw)
-                .pw2(this.pw2)
                 .build();
     }
 
