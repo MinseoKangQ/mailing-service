@@ -7,11 +7,11 @@ import lombok.Setter;
 @Getter
 @Setter
 @Builder
-public class MailDto {
+public class MailsDto {
     private String sender;
     private String receiver;
     private String title;
     private String content;
-    private Boolean isImportant;
-    private Boolean isSpam;
+    private Boolean isImportant = false;
+    private Boolean isSpam = false;
 }

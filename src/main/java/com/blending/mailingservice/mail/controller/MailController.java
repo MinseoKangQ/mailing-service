@@ -1,45 +1,46 @@
 package com.blending.mailingservice.mail.controller;
 
 import com.blending.mailingservice.mail.dto.MailDto;
-import com.blending.mailingservice.mail.service.MailService;
+import com.blending.mailingservice.mail.entity.Mail;
+import com.blending.mailingservice.mail.service.MailServiceImpl;
+import java.util.Collection;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/mail")
+@RequestMapping("api/mail")
 @RequiredArgsConstructor
 public class MailController {
 
-    private final MailService mailService;
+    private final MailServiceImpl mailServiceImpl;
 
-    // 메일 저장 (메일이 전송될 때 불려진다)
     @PostMapping("send")
-    public String sendMail(@RequestBody MailDto mailDto) {
-        String result = mailService.sendMail(mailDto);
-        return result;
+    public ResponseEntity<?> sendMail(@RequestBody MailDto mailDto) {
+        Mail result = mailServiceImpl.sendMail(mailDto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(result);
     }
 
-    // 한 유저의 메일함 전체보기
-    @GetMapping
-    public String readMailAll(@PathVariable("userId") String userId) {
-        return null;
-    }
-
-    // 메일 하나 보기
     @GetMapping("/{userId}/{mailId}")
-    public String readMail(@PathVariable("userId") String userId, @PathVariable("mailId") Long mailId) {
-        return null;
+    public ResponseEntity<?> readMail(@PathVariable("userId") String userId, @PathVariable("mailId") Long mailId) {
+        Mail result = mailServiceImpl.readMail(userId, mailId);
+        return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
-    // receiver 가 메일 읽으면 업데이트
+    @GetMapping
+    public ResponseEntity<?> readMailAll(@PathVariable("userId") String userId) {
+        Collection result = mailServiceImpl.readMailAll(userId);
+        return ResponseEntity.status(HttpStatus.OK).body(result);
+    }
+
     @PutMapping("/{userId}/{mailId}")
     public String updateMailToRead(@PathVariable("userId") String userId, @PathVariable("mailId") Long mailId) {
         return null;
     }
 
-    // 메일 삭제하기
     @DeleteMapping("{mailId}")
-    public String deleteMail(@PathVariable("mailId") Long mailId){
+    public ResponseEntity<?> deleteMail(@PathVariable("mailId") Long mailId){
         return null;
     }
 
