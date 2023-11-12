@@ -2,6 +2,7 @@ package com.blending.mailingservice.user.entity;
 
 import com.blending.mailingservice.mail.entity.Mail;
 import com.blending.mailingservice.spam.entity.Spam;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -39,12 +40,15 @@ public class User {
     @Column(name="user_modified_at", nullable = false)
     private LocalDateTime modifiedAt; // 유저 정보 변경 시간
 
+    @JsonIgnore
     @OneToMany(mappedBy = "receiver", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<Mail> receivedMails = new ArrayList<>(); // 유저가 받은 메일들
 
+    @JsonIgnore
     @OneToMany(mappedBy = "sender", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<Mail> sentMails = new ArrayList<>(); // 유저가 보낸 메일들
 
+    @JsonIgnore
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Spam> spamList = new ArrayList<>(); // 유저가 등록한 스팸 키워드
 

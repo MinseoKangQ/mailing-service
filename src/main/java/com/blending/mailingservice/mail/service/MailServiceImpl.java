@@ -24,7 +24,21 @@ public class MailServiceImpl implements MailService{
 
     @Override
     public Mail sendMail(MailDto mailDto) {
-        Mail mail = convertToEntity(mailDto);
+
+        // 발신인 검증
+        User sender = userRepository.findById(mailDto.getSender())
+                .orElseThrow(() -> new RuntimeException("발신인을 찾을 수 없습니다."));
+
+        // 수신인 검증
+        User receiver = userRepository.findById(mailDto.getReceiver())
+                .orElseThrow(() -> new RuntimeException("수신인을 찾을 수 없습니다."));
+
+
+        // 제목 검증
+
+        // 내용 검증
+
+        Mail mail = convertToEntity(mailDto, sender, receiver);
         mailRepository.save(mail);
         return mail;
     }
@@ -69,16 +83,7 @@ public class MailServiceImpl implements MailService{
     }
 
     // MailDto 를 Mail 엔티티로 변환하는 메소드
-    private Mail convertToEntity(MailDto mailDto) {
-
-        // 발신인 검증
-        User sender = userRepository.findById(mailDto.getSender())
-                .orElseThrow(() -> new RuntimeException("발신인을 찾을 수 없습니다."));
-
-        // 수신인 검증
-        User receiver = userRepository.findById(mailDto.getReceiver())
-                .orElseThrow(() -> new RuntimeException("수신인을 찾을 수 없습니다."));
-
+    private Mail convertToEntity(MailDto mailDto, User sender, User receiver) {
         return Mail.builder()
                 .sender(sender)
                 .receiver(receiver)

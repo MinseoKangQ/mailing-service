@@ -10,7 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("api/mail")
+@RequestMapping("mailing-service/api/mail")
 @RequiredArgsConstructor
 public class MailController {
 
