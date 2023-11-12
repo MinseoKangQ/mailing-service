@@ -14,7 +14,7 @@ public class UserLoginDto {
     public UserLoginDto passwordMasked() {
         return new UserLoginDtoBuilder()
                 .id(this.id)
-                .pw(this.pw)
+                .pw("****")
                 .build();
     }
 

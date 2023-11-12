@@ -46,6 +46,7 @@ public class UserServiceImpl implements UserService {
         User newUser = User.builder()
                 .id(userSignUpDto.getId())
                 .password(userSignUpDto.getPw())
+                .name(userSignUpDto.getName())
                 .build();
 
         userRepository.save(newUser);
@@ -53,6 +54,7 @@ public class UserServiceImpl implements UserService {
         return UserSignUpDto.builder()
                 .id(newUser.getId())
                 .pw(newUser.getPassword())
+                .name(userSignUpDto.getName())
                 .build().passwordMasked();
 
     }
@@ -66,7 +68,7 @@ public class UserServiceImpl implements UserService {
         }
 
         // 비밀번호가 일치하는가?
-        if(!userLoginDto.getPw().equals(userRepository.findById(userLoginDto.getPw()))) {
+        if(!userLoginDto.getPw().equals(userRepository.findById(userLoginDto.getId()).get().getPassword())) {
             throw new CustomException(ErrorCode.PW_MISMATCH);
         }
 
@@ -74,7 +76,7 @@ public class UserServiceImpl implements UserService {
         return UserLoginDto.builder()
                 .id(userLoginDto.getId())
                 .pw(userLoginDto.getPw())
-                .build();
+                .build().passwordMasked();
 
     }
 

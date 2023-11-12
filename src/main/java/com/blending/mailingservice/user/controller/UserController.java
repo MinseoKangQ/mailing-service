@@ -10,7 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("api")
+@RequestMapping("mailing-service/api")
 @RequiredArgsConstructor
 public class UserController {
 
@@ -19,9 +19,8 @@ public class UserController {
     // 회원가입
     @PostMapping("/signup")
     public ResponseEntity<?> signUp(@RequestBody UserSignUpDto userSignUpDto) {
-
         UserSignUpDto result = userServiceImpl.signup(userSignUpDto);
-        return ResponseEntity.status(HttpStatus.OK).body(result);
+        return ResponseEntity.status(HttpStatus.CREATED).body(result);
     }
 
     // 로그인
