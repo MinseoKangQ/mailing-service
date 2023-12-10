@@ -1,9 +1,10 @@
 package com.blending.mailingservice.mail.controller;
 
-import com.blending.mailingservice.mail.dto.MailDto;
-import com.blending.mailingservice.mail.entity.Mail;
+import com.blending.mailingservice.mail.dto.CreateMailDto;
+import com.blending.mailingservice.mail.dto.ReadOneMailRes;
 import com.blending.mailingservice.mail.service.MailServiceImpl;
 import java.util.Collection;
+import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,14 +18,14 @@ public class MailController {
     private final MailServiceImpl mailServiceImpl;
 
     @PostMapping("send")
-    public ResponseEntity<?> sendMail(@RequestBody MailDto mailDto) {
-        Mail result = mailServiceImpl.sendMail(mailDto);
+    public ResponseEntity<?> sendMail(@Valid @RequestBody CreateMailDto CreateMailDto) {
+        String result = mailServiceImpl.sendMail(CreateMailDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(result);
     }
 
     @GetMapping("/{userId}/{mailId}")
     public ResponseEntity<?> readMail(@PathVariable("userId") String userId, @PathVariable("mailId") Long mailId) {
-        Mail result = mailServiceImpl.readMail(userId, mailId);
+        ReadOneMailRes result = mailServiceImpl.readMail(userId, mailId);
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
@@ -35,8 +36,9 @@ public class MailController {
     }
 
     @PutMapping("/{userId}/{mailId}")
-    public String updateMailToRead(@PathVariable("userId") String userId, @PathVariable("mailId") Long mailId) {
-        return null;
+    public ResponseEntity<?> updateMailToRead(@PathVariable("userId") String userId, @PathVariable("mailId") Long mailId) {
+        String result = mailServiceImpl.updateMailToRead(userId, mailId);
+        return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
     @DeleteMapping("{mailId}")

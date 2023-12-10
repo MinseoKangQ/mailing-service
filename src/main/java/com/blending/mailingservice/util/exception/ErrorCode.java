@@ -15,6 +15,7 @@ public enum ErrorCode {
     PW_MISMATCH(HttpStatus.BAD_REQUEST, "비밀번호가 일치하지 않습니다."),
     USER_NOT_FOUND(HttpStatus.NOT_FOUND, "등록되지 않은 아이디입니다."),
     USER_PW_MISMATCH(HttpStatus.UNAUTHORIZED, "해당 아이디의 비밀번호가 일치하지 않습니다."),
+    USER_MAIL_MISMATCH(HttpStatus.UNAUTHORIZED, "메일의 수신자가 아닙니다."),
 
     // MAIL 관련
     MAIL_NOT_FOUND(HttpStatus.NOT_FOUND, "메일을 찾을 수 없습니다.");

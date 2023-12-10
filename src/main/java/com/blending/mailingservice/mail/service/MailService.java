@@ -1,15 +1,14 @@
 package com.blending.mailingservice.mail.service;
 
-import com.blending.mailingservice.mail.dto.MailDto;
+import com.blending.mailingservice.mail.dto.CreateMailDto;
 import com.blending.mailingservice.mail.dto.MailsDto;
-import com.blending.mailingservice.mail.dto.UpdateMailReqDto;
-import com.blending.mailingservice.mail.entity.Mail;
+import com.blending.mailingservice.mail.dto.ReadOneMailRes;
 import java.util.Collection;
 
 public interface MailService {
-    Mail sendMail(MailDto mailDto);
-    Mail readMail(String userId, Long mailId);
+    String sendMail(CreateMailDto CreateMailDto);
+    ReadOneMailRes readMail(String userId, Long mailId);
     Collection<MailsDto> readMailAll(String userId);
-    Boolean updateMailToRead(UpdateMailReqDto updateMailReqDto);
+    String updateMailToRead(String userId, Long mailId);
     Boolean deleteMail(Long mailId);
 }

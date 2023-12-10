@@ -4,7 +4,6 @@ import com.blending.mailingservice.media.entity.Media;
 import com.blending.mailingservice.user.entity.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
-import org.hibernate.annotations.ColumnDefault;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import javax.persistence.*;
