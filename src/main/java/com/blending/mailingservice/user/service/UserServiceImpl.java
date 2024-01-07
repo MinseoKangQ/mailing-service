@@ -1,6 +1,7 @@
 package com.blending.mailingservice.user.service;
 
-import com.blending.mailingservice.user.dto.UserLoginDto;
+import com.blending.mailingservice.user.dto.UserLoginReq;
+import com.blending.mailingservice.user.dto.UserLoginRes;
 import com.blending.mailingservice.user.dto.UserSignUpDto;
 import com.blending.mailingservice.user.entity.User;
 import com.blending.mailingservice.user.repository.UserRepository;
@@ -60,23 +61,22 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserLoginDto login(UserLoginDto userLoginDto) {
+    public UserLoginRes login(UserLoginReq userLoginReq) {
 
         // 존재하는 아이디인가?
-        if (!userRepository.existsById(userLoginDto.getId())) {
+        if (!userRepository.existsById(userLoginReq.getId())) {
             throw new CustomException(ErrorCode.USER_NOT_FOUND);
         }
 
         // 비밀번호가 일치하는가?
-        if(!userLoginDto.getPw().equals(userRepository.findById(userLoginDto.getId()).get().getPassword())) {
+        if(!userLoginReq.getPw().equals(userRepository.findById(userLoginReq.getId()).get().getPassword())) {
             throw new CustomException(ErrorCode.PW_MISMATCH);
         }
 
         // 로그인
-        return UserLoginDto.builder()
-                .id(userLoginDto.getId())
-                .pw(userLoginDto.getPw())
-                .build().passwordMasked();
+        return UserLoginRes.builder()
+                .id(userLoginReq.getId())
+                .name(userRepository.findById(userLoginReq.getId()).get().getName()).build();
 
     }
 

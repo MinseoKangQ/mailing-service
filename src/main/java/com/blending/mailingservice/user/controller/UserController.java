@@ -1,6 +1,7 @@
 package com.blending.mailingservice.user.controller;
 
-import com.blending.mailingservice.user.dto.UserLoginDto;
+import com.blending.mailingservice.user.dto.UserLoginReq;
+import com.blending.mailingservice.user.dto.UserLoginRes;
 import com.blending.mailingservice.user.dto.UserSignUpDto;
 import com.blending.mailingservice.user.service.UserServiceImpl;
 import lombok.RequiredArgsConstructor;
@@ -25,8 +26,8 @@ public class UserController {
 
     // 로그인
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody UserLoginDto userLoginDto) {
-        UserLoginDto result = userServiceImpl.login(userLoginDto);
+    public ResponseEntity<?> login(@RequestBody UserLoginReq userLoginReq) {
+        UserLoginRes result = userServiceImpl.login(userLoginReq);
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
