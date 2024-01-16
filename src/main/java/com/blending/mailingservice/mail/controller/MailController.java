@@ -1,6 +1,7 @@
 package com.blending.mailingservice.mail.controller;
 
 import com.blending.mailingservice.mail.dto.CreateMailDto;
+import com.blending.mailingservice.mail.dto.MailsDto;
 import com.blending.mailingservice.mail.dto.ReadOneMailRes;
 import com.blending.mailingservice.mail.service.MailServiceImpl;
 import java.util.Collection;
@@ -29,9 +30,9 @@ public class MailController {
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
-    @GetMapping
+    @GetMapping("{userId}")
     public ResponseEntity<?> readMailAll(@PathVariable("userId") String userId) {
-        Collection result = mailServiceImpl.readMailAll(userId);
+        Collection<MailsDto> result = mailServiceImpl.readMailAll(userId);
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 

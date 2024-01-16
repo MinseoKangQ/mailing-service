@@ -11,7 +11,10 @@ import com.blending.mailingservice.util.exception.CustomException;
 import com.blending.mailingservice.util.exception.ErrorCode;
 import java.time.LocalDateTime;
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -73,8 +76,11 @@ public class MailServiceImpl implements MailService{
 
     @Override
     public Collection<MailsDto> readMailAll(String userId) {
-        // 유저의 메일함 보는 로직 -> mailRepository 의 findAll 이용
-        return null;
+        // Fetch all mails where the user is the receiver
+        List<Mail> mails = mailRepository.findByReceiverId(userId);
+
+        // Convert each Mail entity to MailsDto
+        return mails.stream().map(mail -> convertToMailsDto(mail)).collect(Collectors.toList());
     }
 
 
@@ -125,6 +131,19 @@ public class MailServiceImpl implements MailService{
                 .content(CreateMailDto.getContent())
                 .isImportant(CreateMailDto.getIsImportant())
                 .isSpam(CreateMailDto.getIsSpam())
+                .build();
+    }
+
+    private MailsDto convertToMailsDto(Mail mail) {
+        return MailsDto.builder()
+                .sender(mail.getSender().getId())
+                .receiver(mail.getReceiver().getId())
+                .title(mail.getTitle())
+                .content(mail.getContent())
+                .sentAt(mail.getSentAt())
+                .isImportant(mail.getIsImportant())
+                .isSpam(mail.getIsSpam())
+                .isRead(mail.getIsRead())
                 .build();
     }
 
