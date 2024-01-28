@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 @Setter
 @Builder
 public class MailsDto {
+    private Long mailId;
     private String sender;
     private String receiver;
     private String title;

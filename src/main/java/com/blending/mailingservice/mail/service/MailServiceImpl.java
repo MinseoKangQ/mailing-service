@@ -136,6 +136,7 @@ public class MailServiceImpl implements MailService{
 
     private MailsDto convertToMailsDto(Mail mail) {
         return MailsDto.builder()
+                .mailId(mail.getId())
                 .sender(mail.getSender().getId())
                 .receiver(mail.getReceiver().getId())
                 .title(mail.getTitle())
