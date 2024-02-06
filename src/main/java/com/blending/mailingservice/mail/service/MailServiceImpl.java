@@ -117,9 +117,17 @@ public class MailServiceImpl implements MailService{
 
     @Override
     public Boolean deleteMail(Long mailId){
+
         // mailId 가 존재하는지 검증
-        // mailId 로 메일 삭제
-        return null;
+        Optional<Mail> existingMail = mailRepository.findById(mailId);
+        if(existingMail.isEmpty()) {
+            throw new CustomException(ErrorCode.MAIL_NOT_FOUND);
+        }
+
+        Mail gotMail = existingMail.get();
+        mailRepository.delete(gotMail);
+
+        return true;
     }
 
     // MailDto 를 Mail 엔티티로 변환하는 메소드

@@ -44,7 +44,8 @@ public class MailController {
 
     @DeleteMapping("{mailId}")
     public ResponseEntity<?> deleteMail(@PathVariable("mailId") Long mailId){
-        return null;
+        Boolean result = mailServiceImpl.deleteMail(mailId);
+        return ResponseEntity.status(HttpStatus.OK).body(null);
     }
 
 }
