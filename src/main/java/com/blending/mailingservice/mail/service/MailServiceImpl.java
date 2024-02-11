@@ -75,12 +75,22 @@ public class MailServiceImpl implements MailService{
     }
 
     @Override
-    public Collection<MailsDto> readMailAll(String userId) {
-        // Fetch all mails where the user is the receiver
+    public Collection<MailsDto> readReceivedMail(String userId) {
         List<Mail> mails = mailRepository.findByReceiverId(userId);
+        return mails.stream().map(this::convertToMailsDto).collect(Collectors.toList());
+    }
 
-        // Convert each Mail entity to MailsDto
-        return mails.stream().map(mail -> convertToMailsDto(mail)).collect(Collectors.toList());
+    @Override
+    public Collection<MailsDto> readSendMail(String userId) {
+        List<Mail> mails = mailRepository.findBySenderId(userId);
+        return mails.stream().map(this::convertToMailsDto).collect(Collectors.toList());
+    }
+
+    @Override
+    public Collection<MailsDto> readMyMail(String userId) {
+        List<Mail> mails = mailRepository.findByReceiverIdAndSenderId(userId, userId);
+        return mails.stream().map(this::convertToMailsDto).collect(Collectors.toList());
+
     }
 
 

@@ -30,9 +30,21 @@ public class MailController {
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
-    @GetMapping("{userId}")
-    public ResponseEntity<?> readMailAll(@PathVariable("userId") String userId) {
-        Collection<MailsDto> result = mailServiceImpl.readMailAll(userId);
+    @GetMapping("/readMyMail/{userId}}")
+    public ResponseEntity<?> readMyMail(@PathVariable("userId") String userId) {
+        Collection<MailsDto> result = mailServiceImpl.readMyMail(userId);
+        return ResponseEntity.status(HttpStatus.OK).body(result);
+    }
+
+    @GetMapping("/received/{userId}")
+    public ResponseEntity<?> readReceivedMail(@PathVariable("userId") String userId) {
+        Collection<MailsDto> result = mailServiceImpl.readReceivedMail(userId);
+        return ResponseEntity.status(HttpStatus.OK).body(result);
+    }
+
+    @GetMapping("/send/{userId}")
+    public ResponseEntity<?> readSendMail(@PathVariable("userId") String userId) {
+        Collection<MailsDto> result = mailServiceImpl.readSendMail(userId);
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 

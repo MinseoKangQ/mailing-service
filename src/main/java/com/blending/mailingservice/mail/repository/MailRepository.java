@@ -9,4 +9,6 @@ import java.util.List;
 @Repository
 public interface MailRepository extends JpaRepository<Mail, Long> {
     List<Mail> findByReceiverId(String receiverId);
+    List<Mail> findBySenderId(String senderId);
+    List<Mail> findByReceiverIdAndSenderId(String userId1, String userId2);
 }

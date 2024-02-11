@@ -8,7 +8,9 @@ import java.util.Collection;
 public interface MailService {
     String sendMail(CreateMailDto CreateMailDto);
     ReadOneMailRes readMail(String userId, Long mailId);
-    Collection<MailsDto> readMailAll(String userId);
+    Collection<MailsDto> readReceivedMail(String userId);
+    Collection<MailsDto> readSendMail(String userId);
+    Collection<MailsDto> readMyMail(String userId);
     String updateMailToRead(String userId, Long mailId);
     Boolean deleteMail(Long mailId);
 }
